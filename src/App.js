@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './style.css';
 import jsxToString from 'jsx-to-string';
+import Prism from 'prismjs';
+// import 'prismjs/themes/prism-dark.css';
+// import 'prismjs/themes/prism.css';
+import 'prismjs/themes/prism-okaidia.css';
+
+Prism.theme = 'dark';
 
 function HOC(Component) {
   return function (props) {
@@ -86,7 +92,7 @@ export default function App() {
         <HOCButton style={{ color: 'red' }}>world</HOCButton>
         {Traverse(ComponentTree)}
       </div>
-      <pre>
+      {/* <pre>
         {jsxToString(
           <div>
             <h1>Hello StackBlitz!</h1>
@@ -96,7 +102,27 @@ export default function App() {
             {Traverse(ComponentTree)}
           </div>
         )}
-      </pre>
+      </pre> */}
+      <section style={{ background: 'rgb(103, 96, 96)', padding: 6 }}>
+        {/* <section> */}
+        <pre
+          dangerouslySetInnerHTML={{
+            __html: Prism.highlight(
+              jsxToString(
+                <div>
+                  <h1>Hello StackBlitz!</h1>
+                  <p>Start editing to see some magic happen :)</p>
+                  <PlainButton style={{ color: 'green' }}>hello</PlainButton>
+                  <HOCButton style={{ color: 'red' }}>world</HOCButton>
+                  {Traverse(ComponentTree)}
+                </div>
+              ),
+              Prism.languages.javascript,
+              'javascript'
+            ),
+          }}
+        ></pre>
+      </section>
     </>
   );
 }
