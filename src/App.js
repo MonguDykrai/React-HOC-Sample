@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './style.css';
+import jsxToString from 'jsx-to-string';
 
 function HOC(Component) {
   return function (props) {
@@ -11,6 +12,8 @@ function PlainButton({ children, style }) {
   return <button style={style}>{children}</button>;
 }
 const HOCButton = HOC(PlainButton);
+
+HOCButton.displayName = 'HOCButton';
 
 HOCButton.defaultProps = {
   style: {
@@ -75,12 +78,25 @@ export default function App() {
   };
 
   return (
-    <div>
-      <h1>Hello StackBlitz!</h1>
-      <p>Start editing to see some magic happen :)</p>
-      <PlainButton style={{ color: 'green' }}>hello</PlainButton>
-      <HOCButton style={{ color: 'red' }}>world</HOCButton>
-      {Traverse(ComponentTree)}
-    </div>
+    <>
+      <div>
+        <h1>Hello StackBlitz!</h1>
+        <p>Start editing to see some magic happen :)</p>
+        <PlainButton style={{ color: 'green' }}>hello</PlainButton>
+        <HOCButton style={{ color: 'red' }}>world</HOCButton>
+        {Traverse(ComponentTree)}
+      </div>
+      <pre>
+        {jsxToString(
+          <div>
+            <h1>Hello StackBlitz!</h1>
+            <p>Start editing to see some magic happen :)</p>
+            <PlainButton style={{ color: 'green' }}>hello</PlainButton>
+            <HOCButton style={{ color: 'red' }}>world</HOCButton>
+            {Traverse(ComponentTree)}
+          </div>
+        )}
+      </pre>
+    </>
   );
 }
